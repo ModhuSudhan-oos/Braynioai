@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Braynio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+    <section id="admin-login-section" class="admin-login-section">
+        <div class="admin-login-form">
+            <h2>Admin Login</h2>
+            <input type="email" id="adminEmail" placeholder="Email" required>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+            <button id="adminLoginBtn">Login</button>
+            <p id="adminLoginMessage" class="admin-login-message"></p>
+            <button onclick="window.location.href='index.html'" style="background: #ccc; margin-top: 1rem;">Go Back Home</button>
+        </div>
+    </section>
+
+    <script>
+        // Your Firebase configuration (same as in main.js)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAFIonE-mcnhxFPDSLFiiIs1-tURXqgGYE",
+            authDomain: "modhusudhan-654e7.firebaseapp.com",
+            projectId: "modhusudhan-654e7",
+            storageBucket: "modhusudhan-654e7.firebasestorage.app",
+            messagingSenderId: "221731458319",
+            appId: "1:221731458319:web:127f4d6f18abf1451e027a",
+            measurementId: "G-S8WE56VM8X"
+        };
+        const ADMIN_UID = "Gn3gILtHcjR5meyLp7SiwjxMyaH3";
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore(); // Also needed for admin.js functions
+        const storage = firebase.storage(); // Also needed for admin.js functions
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            if (adminLoginBtn) {
+                adminLoginBtn.addEventListener('click', adminLogin);
+            }
+
+            // Optional: Check if already logged in as admin on page load
+            auth.onAuthStateChanged(user => {
+                if (user && user.uid === ADMIN_UID) {
+                    window.location.href = 'index.html?admin=true'; // Redirect to home page with admin flag
+                }
+            });
+        });
+
+        async function adminLogin() {
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            const messageElem = document.getElementById('adminLoginMessage');
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                if (userCredential.user.uid === ADMIN_UID) {
+                    messageElem.textContent = 'Login successful! Redirecting to dashboard...';
+                    messageElem.style.color = 'green';
+                    // Redirect to the main page with a parameter to show the dashboard
+                    window.location.href = 'index.html?admin=true';
+                } else {
+                    await auth.signOut(); // Logout unauthorized user
+                    messageElem.textContent = 'Unauthorized access.';
+                    messageElem.style.color = 'red';
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                messageElem.textContent = error.message;
+                messageElem.style.color = 'red';
+            }
+        }
+    </script>
+    <script src="main.js"></script> <script src="admin.js"></script> </body>
+</html>
