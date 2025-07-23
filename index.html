@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braynio - AI Tools & Blog</title>
+    <meta name="description" content="Discover the best AI tools, read insightful blog posts, and stay updated with the latest in artificial intelligence.">
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    </head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">🧠</div>
+                <span>Braynio</span>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('tools')">Tools</a></li>
+                    <li><a href="#" onclick="showPage('categories')">Categories</a></li>
+                    <li><a href="#" onclick="showPage('blog')">Blog</a></li>
+                    <li><a href="#subscribe">Subscribe</a></li>
+                </ul>
+            </nav>
+            <div class="cta-buttons">
+                <button class="subscribe-btn" id="subscribeBtn">Subscribe</button>
+            </div>
+            <div class="theme-toggle" id="themeToggle">
+                <span class="toggle-icon">☀️</span> </div>
+        </div>
+    </header>
+
+    <div id="main-content-container">
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Discover <span id="typed-text"></span></h1>
+                    <p>Unlock the power of AI with our curated collection of cutting-edge tools</p>
+                    <button class="hero-cta" id="heroSubscribe">Get Early Access <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div id="lottie-animation" class="lottie-animation fade-in delay-1"></div>
+            </div>
+            <div class="particles" id="particles"></div>
+        </section>
+
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-card fade-in">
+                    <div class="stat-value" id="toolsCount">0+</div>
+                    <div class="stat-label">AI Tools</div>
+                </div>
+                <div class="stat-card fade-in delay-1">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Updated</div>
+                </div>
+                <div class="stat-card fade-in delay-2">
+                    <div class="stat-value" id="usersCount">0K+</div>
+                    <div class="stat-label">Users</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-section">
+            <div class="search-container fade-in">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search AI tools...">
+                </div>
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                </select>
+            </div>
+        </section>
+
+        <section id="categories" class="category-section">
+            <h2 class="section-title fade-in">Explore Categories</h2>
+            <div class="categories-grid">
+                </div>
+        </section>
+
+        <section id="tool-grid-section" class="tool-grid-section">
+            <h2 class="section-title fade-in">Featured AI Tools</h2>
+            <main id="tool-grid" class="tool-grid">
+                </main>
+        </section>
+
+        <section id="blog-section" class="blog-section">
+            <h2 class="section-title fade-in">Latest Blog Posts</h2>
+            <div class="blog-posts-grid" id="blogPostsGrid">
+                </div>
+        </section>
+
+        <section id="subscribe" class="subscribe-section">
+            <div class="subscribe-container fade-in">
+                <h2>Stay Updated with AI Trends</h2>
+                <p>Subscribe to get exclusive tool recommendations and industry insights</p>
+                <div class="subscribe-form">
+                    <input type="email" id="subscribeEmail" placeholder="Your professional email">
+                    <button class="subscribe-btn" id="footerSubscribe">Subscribe</button>
+                </div>
+            </div>
+        </section>
+    </div> <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-container">
+                    <div class="logo">🧠</div>
+                    <span>Braynio</span>
+                </div>
+                <p>© 2023 Braynio. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+            </div>
+        </div>
+        <div class="social-links-footer">
+            <a href="https://www.tiktok.com/@toolgenix?_t=ZS-8xPmpiUWPMv&_r=1" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/toolgenix395?igsh=OGFuN2V3ODA4Yzdl" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/toolgenix-hub" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+            <a href="https://youtube.com/@toolgenix-q2j?si=enc-NW0jNpDIFCz2" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61577820863279&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </footer>
+
+    <section id="admin-login-section" class="admin-login-section" style="display:none;">
+        <div class="admin-login-form">
+            <h2>Admin Login</h2>
+            <input type="email" id="adminEmail" placeholder="Email" required>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+            <button id="adminLoginBtn">Login</button>
+            <p id="adminLoginMessage" class="admin-login-message"></p>
+            <button onclick="showPage('home')" style="background: #ccc; margin-top: 1rem;">Go Back Home</button>
+        </div>
+    </section>
+
+    <section id="admin-dashboard-section" class="admin-panel" style="display:none;">
+        <h2>Admin Dashboard</h2>
+
+        <div class="admin-tab-navigation">
+            <button class="admin-tab-btn active" data-tab="blog-management">Blog Management</button>
+            <button class="admin-tab-btn" data-tab="content-pages">Content Pages</button>
+            <button class="admin-tab-btn" data-tab="users-subscribers">Users & Subscribers</button>
+            <button class="admin-tab-btn" data-tab="tool-category-management">Tools & Categories</button>
+        </div>
+
+        <div id="blog-management-tab" class="admin-tab-content active">
+            <h3>Add/Manage Blog Posts</h3>
+            <div class="form-group">
+                <label for="blogTitle">Title:</label>
+                <input type="text" id="blogTitle" placeholder="Blog Post Title" required>
+            </div>
+            <div class="form-group">
+                <label for="blogAuthor">Author:</label>
+                <input type="text" id="blogAuthor" placeholder="Author Name" required>
+            </div>
+            <div class="form-group">
+                <label for="blogImage">Featured Image:</label>
+                <input type="file" id="blogImage" accept="image/*">
+                <img id="blogImagePreview" src="" alt="Image Preview" style="max-width: 200px; margin-top: 10px; display: none;">
+            </div>
+            <div class="form-group">
+                <label for="blogVideo">Video URL (Optional - YouTube/Vimeo Embed):</label>
+                <input type="text" id="blogVideo" placeholder="e.g., youtube.com/watch?v=v=VIDEO_ID or https://vimeo.com/VIDEO_ID">
+            </div>
+            <div class="form-group">
+                <label for="blogContent">Content (Paragraphs):</label>
+                <textarea id="blogContent" rows="10" placeholder="Write your blog post content here. Use double newlines for new paragraphs."></textarea>
+            </div>
+            <button id="addBlogPostBtn">Add Blog Post</button>
+            <p id="blogPostStatus"></p>
+
+            <hr style="margin: 2rem 0; border-color: #eee;">
+            <h3>Existing Blog Posts</h3>
+            <div id="existingBlogPosts" class="blog-posts-list">
+                </div>
+        </div>
+
+        <div id="content-pages-tab" class="admin-tab-content">
+            <h3>Manage Content Pages (Privacy, Terms, Contact)</h3>
+            <p>These pages are now static HTML files. To edit them, you need to directly modify: <br> `privacy.html`, `terms.html`, `about.html`, `contact.html`</p>
+            <p style="color: red; font-weight: bold;">Dynamic editing for these pages is disabled as per your request to make them static.</p>
+        </div>
+
+        <div id="users-subscribers-tab" class="admin-tab-content">
+            <h3>Manage Subscribers</h3>
+            <div id="subscribersList">
+                </div>
+            <p>You can export subscriber emails from Firebase Console directly.</p>
+        </div>
+        
+        <div id="tool-category-management-tab" class="admin-tab-content">
+            <h3>Manage AI Tools & Categories (Future Expansion)</h3>
+            <p>This section is for future expansion. Here you would implement forms/tables to add, edit, or delete AI tools and categories, similar to blog post management.</p>
+            <p>Example: "Add New Tool" form, "Edit Category" section, drag-and-drop for reordering, etc.</p>
+            <p>For now, please manage tools and categories directly from Firebase Firestore Console.</p>
+        </div>
+
+        <button id="adminLogoutBtn" style="background: #ef4444; margin-top: 2rem;">Logout</button>
+    </section>
+
+    <div id="single-blog-post-page" class="single-blog-post" style="display:none;">
+        <button onclick="showPage('blog')" style="margin-bottom: 2rem; background: var(--secondary);">Back to Blog</button>
+        <h1 id="single-post-title"></h1>
+        <div class="post-meta">
+            By <span id="single-post-author"></span> on <span id="single-post-date"></span>
+        </div>
+        <img id="single-post-image" src="" alt="Post Image" style="display: none;">
+        <div id="single-post-video" style="display: none; margin: 1.5rem 0;"></div>
+        <div id="single-post-content"></div>
+        </div>
+
+    <script src="main.js"></script>
+    <script src="admin.js"></script>
+
+</body>
+                      </html>
