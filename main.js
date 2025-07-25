@@ -581,3 +581,22 @@ async function handleContactFormSubmit(event) {
         statusElem.style.color = 'red';
     }
                                   }
+// main.js (inside showPage function)
+
+function showPage(pageName, data = null) {
+    hideAllSections();
+    window.scrollTo(0, 0);
+
+    // Remove active class from all nav links
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.classList.remove('active');
+    });
+
+    // Add active class to the current page's nav link
+    const currentNavLink = document.querySelector(`.nav-menu a[onclick*="showPage('${pageName}')"]`);
+    if (currentNavLink) {
+        currentNavLink.classList.add('active');
+    }
+
+    // ... rest of your showPage logic
+}
